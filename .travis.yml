@@ -1,0 +1,42 @@
+language: go
+
+go:
+  - 1.7
+
+cache:
+  directories:
+    - vendor
+
+env:
+  global:
+    - GO15VENDOREXPERIMENT=1
+    - GOOS=linux
+
+before_install:
+  - go get github.com/Masterminds/glide
+
+install:
+  - $GOPATH/bin/glide install
+  - go get -t $($GOPATH/bin/glide novendor)
+
+script:
+  - mv $GOPATH/bin/mattermost-journalctlnotifier ./
+  - md5sum mattermost-journalctlnotifier > md5.txt
+  - sha256sum mattermost-journalctlnotifier > sha256.txt
+  - sha512sum mattermost-journalctlnotifier > sha512.txt
+  - ls -alh
+
+deploy:
+  - provider: releases
+    edge:
+      branch: releases-fix
+    skip_cleanup: true
+    api_key:
+    secure: LsNZV8i/fLhVTaiQqkkje0RHY7hZ5z/CxGEUD1H6IRrMQDcHW26uiDhyK5dedmNft0x638cBsK0KEoaxpj99Afvknn0xwJ73vfqL8jcArIdJOBWbi8yv8zMlPy+NtVS8jsxfTAzOXD2Df5pzWkHLd6KLvs8I/+CtZLptO9/7ZTVwTMRUAptcaM1upgpRbORYVI943Ni2hnfkz+8b+gbKYMgkwJOdHq9ostYQ+o5emjdF1ETKy1Tqnnp5VS2mPTWO71TLOfSFY6Y6NtPFvqMJneqNz0zN1K8PwQBYYoJh9nqQfLcOf87gRvCHkWFO/9bT2JDWTOh7kkd59X6G2i794XzkS2PfTURMBS8H1I2OI6hbd8axAypm7Yy9tzHSN7Ag4GLCGoKglpla7QXMUeaZaQWUhW6NjruJjaXCSy0vb+S3MdsbFRWuHuIJEIo48aXfvVFqrsNNAs3VxwMPGNdJ2OKQ9nG7CKsqub/7kFfeBzX6qfXXrZ1eZdO1A9GD5TQYBahnWpKDDrllcC/xaQ27t3T9e7a6Ahcc62dFmHcZEYmLQPS5qijyhlIbIS63Pz/2LXqYC9V0zHpIGK6cZ6XDycIHvre7KjFJYP6TceqE+yycoGRnTYEqmJLK3xsc3uCt/NCKY8Z9oF2ec91U+8/QmfCA8X3C8biQBuojGrAmkTE=
+    file:
+      - mattermost-journalctlnotifier
+      - md5.txt
+      - sha256.txt
+      - sha512.txt
+    on:
+      tags: true

@@ -1,0 +1,14 @@
+hash: 1a5e0b2204ab2e7d39fa0ff2516021750b39a01ef4ff480a4b8bc98b4dbb8dda
+updated: 2016-10-27T13:55:16.447531319-04:00
+imports:
+- name: github.com/mattn/go-shellwords
+  version: 525bedee691b5a8df547cb5cf9f86b7fb1883e24
+- name: github.com/Sirupsen/logrus
+  version: 08a8a7c27e3d058a8989316a850daad1c10bf4ab
+- name: github.com/urfave/cli
+  version: 168c95418e66e019fe17b8f4f5c45aa62ff80e23
+- name: golang.org/x/sys
+  version: a646d33e2ee3172a661fc09bca23bb4889a41bc8
+  subpackages:
+  - unix
+testImports: []

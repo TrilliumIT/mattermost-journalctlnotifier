@@ -1,0 +1,5 @@
+package: github.com/TrilliumIT/mattermost-journalctlnotifier
+import:
+- package: github.com/Sirupsen/logrus
+- package: github.com/mattn/go-shellwords
+- package: github.com/urfave/cli
